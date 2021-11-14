@@ -2,35 +2,34 @@ String[] lines;
 int[] values;
 
 String getResult(String value) {
-   //read();
-   //getValues(lines);
-   //return writeTestMsg(values);
    int an_pwr = Integer.valueOf(value);
-   double pw = an_pwr / 1023.0 * 30.0;
-   return "Analog val: " + an_pwr + "\t Pwr (uW) = " + pw;
+   double volts = an_pwr / 1023.0;
+   double watts = volts * 30.0;
+   return "Analog val: " + volts + "\t Pwr (uW) = " + watts;
 }
 
-//void read() {
-//  lines = loadStrings("data.txt");
-//}
+void up() {
+  mySerial.write('w');
+}
 
-//void getValues(String[] valuesStr) {
-//  if (valuesStr.length > 0) {
-//    values = new int[valuesStr.length];
-//    for (int i = 0; i < valuesStr.length; i++) {
-//      int value = Integer.valueOf(valuesStr[i]);
-//      values[i] = value;
-//    }
-//  }
-//}
+void down() {
+  mySerial.write('s');
+}
 
-//String writeTestMsg(int[] v) {
-//  if (v.length > 0) {
-//    String msg = "";
-//    for (int i : v) {
-//      double pwr = i / 1023.0 * 30.0;
-//      msg += "Analog val: " + i + "\t Pwr (uW) = " + pwr + "\n";
-//    }
-//  }
-//  return "";
-//}
+void right() {
+  for (int i = 0; i < 300; i++) {
+    mySerial.write('d');
+  }
+}
+
+void left() {
+  for (int i = 0; i < 300; i++) {
+    mySerial.write('a');
+  }
+}
+
+void stop() {
+  output.flush();
+  output.close();
+  exit();
+}
