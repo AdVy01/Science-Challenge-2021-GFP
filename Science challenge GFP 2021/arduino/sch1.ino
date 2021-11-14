@@ -24,26 +24,22 @@ void setup() {
 void loop() {
   Serial.print(analogRead(LASER_PWR));
   
-  if(Serial.available()) {
+  if(Serial.available() > 0) {
     char msg = Serial.read();
     if(msg == 'a') {
-      Serial.println("Left 200");
-      pohybOsy(true,  X_DIR, X_STEP, 200);      
+      pohybOsy(true,  X_DIR, X_STEP, 10);
     }
     else if(msg == 'd') {
-      Serial.println("Right 200");
-      pohybOsy(false,  X_DIR, X_STEP, 200);      
+      pohybOsy(false,  X_DIR, X_STEP, 10);
     }
     if(msg == 's') {
-      Serial.println("Down 200");
-      pohybOsy(true,  Y_DIR, Y_STEP, 200);      
+        pohybOsy(true,  Y_DIR, Y_STEP, 200);
     }
     else if(msg == 'w') {
-      Serial.println("Up 200");
-      pohybOsy(false,  Y_DIR, Y_STEP, 200);      
+      pohybOsy(false,  Y_DIR, Y_STEP, 200);
     }
   }
-  delay(250);
+  delay(100);
 }
 
 void pohybOsy(boolean smer, byte dirPin, byte stepPin, int kroky) {
@@ -52,9 +48,9 @@ void pohybOsy(boolean smer, byte dirPin, byte stepPin, int kroky) {
   delay(50);
   // smycka pro provedeni predaneho mnozstvi kroku
   for (int i = 0; i < kroky; i++) {
-    digitalWrite(stepPin, HIGH);
-    delayMicroseconds (800);
+    digitalWrite(stepPin, HIGH);  
+    delayMicroseconds (1000);
     digitalWrite(stepPin, LOW);
-    delayMicroseconds (800);
+    delayMicroseconds (1000);
   }
 }
